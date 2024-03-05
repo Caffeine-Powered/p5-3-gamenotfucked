@@ -8,7 +8,7 @@ class Player {
     sprite = new Sprite();
     sprite.width = 50;
     sprite.height = 50;
-    sprite.mass = 2;
+    sprite.collider = 'kinematic';                    //other sprites don't effect player sprite
   }
 
   move() {
