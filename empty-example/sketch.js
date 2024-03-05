@@ -2,17 +2,16 @@ let sprite;
 let cursor;
 let bullet;
 let gun;
+let mainPlayer;
 
 
 
 
 function setup() {
 	new Canvas(800, 800);
-  noCursor();
 
-	sprite = new Sprite();
-	sprite.width = 50;
-	sprite.height = 50;
+  noCursor();
+  mainPlayer = new Player;
 
   cursor = new Sprite();
   cursor.img = 'Assets/crosshair.png';
@@ -20,37 +19,52 @@ function setup() {
   cursor.layer = 3;
   cursor.scale = 2;
 
-  /**bullet = new Sprite();
+  bullet = new Sprite();
   bullet.color = 'red';
   bullet.diameter = 20;
-  bullet.layer = 1;**/
+  bullet.layer = 1;
+  bullet.mass = 1;
 
   gun = new Sprite(width/2,height/2,30,10);
   gun.color = 'green';
   gun.offset.x = 55;
   gun.layer = 4;
 
+  mainPlayer.display();
+
 
   
 
 }
 
+function getMouseVector(){
+	let mouseXalt = mouseX - sprite.x;
+	let mouseYalt = mouseY - sprite.y;
+	let mouseDir = createVector(mouseXalt, mouseYalt);
+	mouseDir.normalize();
+	return mouseDir;
+}
+
+function mousePressed(){
+  let mouseVector = getMouseVector();
+  console.log(mouseVector);
+}
+
 
 function draw() {
+
   clear();
   background(255);
 
-  if (kb.pressing('left')) sprite.vel.x = -5;
-  else if (kb.pressing('right')) sprite.vel.x = 5;
-  else sprite.vel.x = 0;
-  if (kb.pressing('up')) sprite.vel.y = -5;
-  else if (kb.pressing('down')) sprite.vel.y = 5;
-  else sprite.vel.y = 0;
+
+  mainPlayer.move();
+
 
   cursor.position.x = mouseX;
   cursor.position.y = mouseY;
   cursor.overlaps(sprite);
   //cursor.overlaps(bullet);
+
 
   gun.overlaps(sprite);
   //gun.overlaps(bullet);
