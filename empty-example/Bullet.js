@@ -1,23 +1,22 @@
 class bullet {
-  constructor(xSpd, ySpd) {
+  constructor(x, y, angle) {
     this.x = sprite.x;
     this.y = sprite.y;
-    this.xSpd = 12 * xSpd;
-    this.ySpd = 12 * ySpd;
+    this.angle = angle;
+    this.speed = 16;
   }
 
-  dislay() {
-    bulletspr = new Sprite();
-    bulletspr.color = 'red';
-    bulletspr.diameter = 20;
-    bulletspr.layer = 1;
+  draw() {
+    push();
+    bullet = new Sprite();
+    bullet.diameter = 20;
+    bullet.pos(this.x, this.y);
+    pop();
   }
 
   update() {
-    this.x += this.xSpd;
-		this.y += this.ySpd;
-		this.xSpd *= 0.994;
-		this.ySpd *= 0.994;
+    this.x += this.speed * cos(this.angle);
+    this.y += this.speed * sin(this.angle);
   }
 
 }

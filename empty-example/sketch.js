@@ -51,3 +51,4 @@ function draw() {
   gun.moveTowards(sprite,1,0);
 
 }
+
